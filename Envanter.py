@@ -3,8 +3,8 @@ import os
 import wmi
 import sqlite3 as sql
 import win32com.client
-"""sda"""
 
+"""Ram Sayısını Bulan Kod Bloğu"""
 strComputer = "."
 objWMIService = win32com.client.Dispatch("WbemScripting.SWbemLocator")
 objSWbemServices = objWMIService.ConnectServer(strComputer,"root\cimv2")
@@ -14,7 +14,7 @@ for objItem in colItems:
     if objItem.BankLabel != None:
         ram_sayac +=1
 
-
+"""Bilgisasyar Bilgilerini alan kod bloğu """
 computer = wmi.WMI()
 my_system = computer.Win32_ComputerSystem()[0]
 os_info = computer.Win32_OperatingSystem()[0]
@@ -25,7 +25,12 @@ os_name = os_info.Name.encode('utf-8').split(b"|")[0]
 os_version = ' '.join([os_info.Version, os_info.BuildNumber])
 system_ram = float(os_info.TotalVisibleMemorySize) / 1048576  # KB to GB
 pc_serial = os.popen("wmic bios get serialnumber").read().replace("\n","")
+marka_bilgi = my_system.Manufacturer
+model_bilgi = my_system.Model
+ram_sayisi = ram_sayac
 
+
+"""Disk Bilgilerini Alan Kod Bloğu"""
 disk = psutil.disk_usage('/')
 size = disk.total / 1024 **3
 size = str(size)
@@ -38,9 +43,6 @@ elif size[3] == ".":
 else:
     totalsize = str(size[0:4]+" GB")
 
-marka_bilgi = my_system.Manufacturer
-model_bilgi = my_system.Model
-ram_sayisi = ram_sayac
 
 
 
