@@ -3,7 +3,7 @@ import os
 import wmi
 import sqlite3 as sql
 import win32com.client
-
+"""sda"""
 
 strComputer = "."
 objWMIService = win32com.client.Dispatch("WbemScripting.SWbemLocator")
